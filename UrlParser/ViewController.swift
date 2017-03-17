@@ -14,9 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let regexForUrl: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment, .query]
-        let map = UrlParser.shared.parse(text: "http://username:password@hostname/path?arg=value#anchor", with: regexForUrl)
+        let map = RegexParser.shared.parse(text: "http://username:password@hostname/path?arg=value#anchor", with: regexForUrl)
         
-        var test = 0
     }
 }
 

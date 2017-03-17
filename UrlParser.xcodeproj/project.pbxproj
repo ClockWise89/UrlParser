@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F9F86C71E7AE0F80021FF51 /* UrlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F86C61E7AE0F80021FF51 /* UrlParser.swift */; };
+		2F9F86C71E7AE0F80021FF51 /* RegexParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F86C61E7AE0F80021FF51 /* RegexParser.swift */; };
 		2FBDDD921E7AE05A006512C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBDDD911E7AE05A006512C6 /* AppDelegate.swift */; };
 		2FBDDD941E7AE05A006512C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBDDD931E7AE05A006512C6 /* ViewController.swift */; };
 		2FBDDD971E7AE05A006512C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FBDDD951E7AE05A006512C6 /* Main.storyboard */; };
@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F9F86C61E7AE0F80021FF51 /* UrlParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlParser.swift; sourceTree = "<group>"; };
+		2F9F86C61E7AE0F80021FF51 /* RegexParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexParser.swift; sourceTree = "<group>"; };
 		2FBDDD8E1E7AE05A006512C6 /* UrlParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UrlParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FBDDD911E7AE05A006512C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FBDDD931E7AE05A006512C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 				2FBDDD981E7AE05A006512C6 /* Assets.xcassets */,
 				2FBDDD9A1E7AE05A006512C6 /* LaunchScreen.storyboard */,
 				2FBDDD9D1E7AE05A006512C6 /* Info.plist */,
-				2F9F86C61E7AE0F80021FF51 /* UrlParser.swift */,
+				2F9F86C61E7AE0F80021FF51 /* RegexParser.swift */,
 			);
 			path = UrlParser;
 			sourceTree = "<group>";
@@ -141,7 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FBDDD941E7AE05A006512C6 /* ViewController.swift in Sources */,
-				2F9F86C71E7AE0F80021FF51 /* UrlParser.swift in Sources */,
+				2F9F86C71E7AE0F80021FF51 /* RegexParser.swift in Sources */,
 				2FBDDD921E7AE05A006512C6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

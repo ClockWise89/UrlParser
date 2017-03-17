@@ -1,6 +1,6 @@
 //
-//  UrlParser.swift
-//  UrlParser
+//  RegexParser.swift
+//  RegexParser
 //
 //  Created by Christopher Eliasson on 2017-03-16.
 //  Copyright © 2017 Christopher Eliasson. All rights reserved.
@@ -43,8 +43,8 @@ enum RegexType {
     }
 }
 
-class UrlParser {
-    static let shared = UrlParser()
+class RegexParser {
+    static let shared = RegexParser()
     
     
     func parse(text: String, with regexTypes: [RegexType]) -> [String:String] {
