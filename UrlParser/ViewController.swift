@@ -12,14 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UrlParser.shared.parse(regex: .hostname)
+        
+        let regexForUrl: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment]
+        let map = UrlParser.shared.parse(text: "http://username:password@hostname/path?arg=value?arg=value#anchor", with: regexForUrl)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 

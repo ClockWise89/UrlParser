@@ -9,7 +9,7 @@
 import Foundation
 
 
-enum ParseRegex {
+enum RegexType {
     case scheme
     case hostname
     case username
@@ -18,7 +18,7 @@ enum ParseRegex {
     case query
     case fragment
     
-    func regex() -> String {
+    func getRegex() -> String {
         switch self {
         case .scheme: return "^(http|https)://"
         case .hostname: return "(?<=@).*?(?=/)"
@@ -29,33 +29,51 @@ enum ParseRegex {
         case .fragment: return "(?<=#).*"
         }
     }
+    
+    func getKey() -> String {
+        switch self {
+        case .scheme: return "scheme"
+        case .hostname: return "hostname"
+        case .username: return "username"
+        case .password: return "password"
+        case .path: return "path"
+        case .query: return "query"
+        case .fragment: return "fragment"
+        }
+    }
 }
 
 class UrlParser {
     static let shared = UrlParser()
     
     
-    func parse(regex: ParseRegex) {
+    func parse(text: String, with regexTypes: [RegexType]) -> [String:String] {
         
-        let test: ParseRegex = .fragment
-        do {
-            let regex2 = try NSRegularExpression(pattern: test.regex())
-            let string = "http://username:password@hostname/path?arg=value?arg=value2#anchor"
+        var map: [String:String] = [:]
+        for type in regexTypes {
             
-            let matches = regex2.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
-            
-            let results = matches.map { match -> String in
-                let range = match.rangeAt(0)
-                let start = String.UTF16Index(range.location)
-                let end = String.UTF16Index(range.location + range.length)
+            do {
+                let regex = try NSRegularExpression(pattern: type.getRegex())
                 
-                return String(string.utf16[start..<end])!
+                let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.characters.count))
+                
+                let results = matches.map { match -> String in
+                    let range = match.rangeAt(0)
+                    let start = String.UTF16Index(range.location)
+                    let end = String.UTF16Index(range.location + range.length)
+                    
+                    return String(text.utf16[start..<end])!
+                }
+                
+                for result in results {
+                    map[type.getKey()] = result
+                }
+                
+            } catch let error {
+                debugPrint("invalid regex: " + error.localizedDescription)
             }
-            
-            var tests = 0
-        
-        } catch let error {
-            debugPrint("invalid regex: " + error.localizedDescription)
         }
+        
+        return map
     }
 }
