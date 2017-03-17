@@ -13,9 +13,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let regexForUrl: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment, .query]
-        let map = RegexParser.shared.parse(text: "http://username:password@hostname/path?arg=value#anchor", with: regexForUrl)
-        
+        let regexForUrl: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment, .fullQuery]
+        let regexForQuery: [RegexType] = [.queryArgs, .queryValues]
+        let map = RegexParser.shared.parse(text: "http://username:password@hostname/path?hej=hå&sug=min&kalle=tå#anchor", with: regexForQuery)
+        var test = 0
     }
 }
 
