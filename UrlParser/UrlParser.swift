@@ -21,11 +21,11 @@ enum ParseRegex {
     func regex() -> String {
         switch self {
         case .scheme: return "^(http|https)://"
-        case .hostname: return ""
+        case .hostname: return "(?<=@).*?(?=/)"
         case .username: return "(?<=^(http|https)://).*?(?=:)"
-        case .password: return "((?<=[a-z]:)(?=[a-z])).*?(?=@)"
-        case .path: return ""
-        case .query: return ""
+        case .password: return "((?<=[a-zA-Z0-9]:)(?=[a-zA-Z0-9])).*?(?=@)"
+        case .path: return "(?<=[a-zA-Z0-9]/).*?(?=\\?)"
+        case .query: return "(?<=\\?).*?(?=#|\\?)"
         case .frament: return ""
         }
     }
@@ -37,9 +37,10 @@ class UrlParser {
     
     func parse(regex: ParseRegex) {
         
+        let test: ParseRegex = .query
         do {
-            let regex2 = try NSRegularExpression(pattern: regex.regex())
-            let string = "http://username:password@hostname/path?arg=value#anchor"
+            let regex2 = try NSRegularExpression(pattern: test.regex())
+            let string = "http://username:password@hostname/path?arg=value?arg=value2#anchor"
             
             let matches = regex2.matches(in: string, options: [], range: NSRange(location: 0, length: string.characters.count))
             

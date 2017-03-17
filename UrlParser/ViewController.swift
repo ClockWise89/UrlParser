@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UrlParser.shared.parse(regex: .password)
+        UrlParser.shared.parse(regex: .hostname)
     }
 
     override func didReceiveMemoryWarning() {
