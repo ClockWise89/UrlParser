@@ -16,7 +16,7 @@ enum ParseRegex {
     case password
     case path
     case query
-    case frament
+    case fragment
     
     func regex() -> String {
         switch self {
@@ -26,7 +26,7 @@ enum ParseRegex {
         case .password: return "((?<=[a-zA-Z0-9]:)(?=[a-zA-Z0-9])).*?(?=@)"
         case .path: return "(?<=[a-zA-Z0-9]/).*?(?=\\?)"
         case .query: return "(?<=\\?).*?(?=#|\\?)"
-        case .frament: return ""
+        case .fragment: return "(?<=#).*"
         }
     }
 }
@@ -37,7 +37,7 @@ class UrlParser {
     
     func parse(regex: ParseRegex) {
         
-        let test: ParseRegex = .query
+        let test: ParseRegex = .fragment
         do {
             let regex2 = try NSRegularExpression(pattern: test.regex())
             let string = "http://username:password@hostname/path?arg=value?arg=value2#anchor"
