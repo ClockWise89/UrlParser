@@ -15,10 +15,10 @@ enum RegexType {
     case username
     case password
     case path
-    case fullQuery
+    case query
+    case extractedQuery
     case fragment
-    case queryArgs
-    case queryValues
+    
     
     func getRegex() -> String {
         switch self {
@@ -27,10 +27,10 @@ enum RegexType {
         case .username: return "(?<=^(http|https)://).*?(?=:)"
         case .password: return "((?<=[a-zA-Z0-9]:)(?=[a-zA-Z0-9])).*?(?=@)"
         case .path: return "(?<=[a-zA-Z0-9]/).*?(?=\\?)"
-        case .fullQuery: return "(?<=\\?).*?(?=#|\\?)"
+        case .query: return "(?<=\\?).*?(?=#|\\?)"
         case .fragment: return "(?<=#).*"
-        case .queryArgs: return "(?<=\\?|&).*?(?=\\=)"
-        case .queryValues: return "(?<=\\=).*?(?=\\&|#)"
+        case .extractedQuery: return "(?<=\\?|\\&).*?(?=#|\\&)"
+    
         }
     }
     
@@ -41,10 +41,10 @@ enum RegexType {
         case .username: return "username"
         case .password: return "password"
         case .path: return "path"
-        case .fullQuery: return "query"
+        case .query: return "query"
         case .fragment: return "fragment"
-        case .queryArgs: return "key"
-        case .queryValues: return "key"
+        case .extractedQuery: return ""
+
         }
     }
 }
@@ -71,15 +71,16 @@ class RegexParser {
                     return String(text.utf16[start..<end])!
                 }
                 
-                if regexTypes.contains(.queryArgs) && regexTypes.contains(.queryValues) && regexTypes.count == 2 {
-                    for (index, result) in results.enumerated() {
-                        //map[] = result
-                    }
+                for result in results {
                     
-                } else {
-                    for result in results {
+                    if type == .extractedQuery {
+                        let splitResult = result.components(separatedBy: "=")
+                        map[splitResult[0]] = splitResult[1]
+
+                    } else {
                         map[type.getKey()] = result
                     }
+                    
                 }
                 
                 
