@@ -13,19 +13,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let baseUrl = "http://username:password@hostname/path?arg=value&arg2=value2#anchor"
+        let baseString = "http://username:password@hostname/path?arg=value#anchor"
+        let regexForBase: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment, .query]
         
-        let regexForUrl: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment, .query, .extractedQuery]
-        let map = RegexParser.shared.parse(text: baseUrl, with: regexForUrl)
-        map.forEach{
+        let exampleString = "http://clockwise:difficultP455w0rd@celiasson.se/swift101/C:/myFolder?token=123847192asudhiIUjsa&loggedIn=true#anchor"
+        let regexForFullExample: [RegexType] = [.scheme, .hostname, .username, .password, .path, .fragment, .query, .extractedQuery]
+        
+        let baseMap = RegexParser.shared.parse(text: baseString, with: regexForBase)
+        
+        print("****************************************************************")
+        print(baseString)
+        baseMap.forEach{
             print("----------------")
             print("Key: \($0.key)")
             print("Value: \($0.value)")
-            print("----------------")
-            print("")
         }
         
+        print("")
+        print("****************************************************************")
+        print(exampleString)
         
+        let exampleMap = RegexParser.shared.parse(text: exampleString, with: regexForFullExample)
+        exampleMap.forEach{
+            print("----------------")
+            print("Key: \($0.key)")
+            print("Value: \($0.value)")
+        }
     }
 }
 

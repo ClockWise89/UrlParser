@@ -25,7 +25,7 @@ enum RegexType {
         case .scheme: return "^(http|https)://"
         case .hostname: return "(?<=@).*?(?=/)"
         case .username: return "(?<=^(http|https)://).*?(?=:)"
-        case .password: return "((?<=[a-zA-Z0-9]:)(?=[a-zA-Z0-9])).*?(?=@)"
+        case .password: return "((?<=[a-zA-Z0-9]:)(?=[a-zA-Z0-9])).*?(?=@)" // Note: This regex will only fetch password if username is a-z, A-Z, 0-9 even though the regex for .username allows username to be all characters. Password can also only be a-z, A-Z, and 0-9.
         case .path: return "(?<=[a-zA-Z0-9]/).*?(?=\\?)"
         case .query: return "(?<=\\?).*?(?=#|\\?)"
         case .fragment: return "(?<=#).*"
@@ -74,8 +74,14 @@ class RegexParser {
                 for result in results {
                     
                     if type == .extractedQuery {
+                        
+                        // The regex for extractedQuery will extract arg=value, we will then split it based on "=" and use the first string as key and the next as value. Quickest and easiest solution I could think of, but also stinky.
+                        
                         let splitResult = result.components(separatedBy: "=")
-                        map[splitResult[0]] = splitResult[1]
+                        
+                        if splitResult.count > 1 {
+                            map[splitResult[0]] = splitResult[1]
+                        }
 
                     } else {
                         map[type.getKey()] = result
